@@ -7,6 +7,10 @@ if !exists("g:projectlocal_project_markers")
 	let g:projectlocal_project_markers = ['.git', '.hg']
 endif
 
+if !exists("g:projectlocal_filename")
+	let g:projectlocal_filename = '.vimrc'
+endif
+
 function! s:WalkTreeInternal(dir) " {
 	let l:is_project_dir = 0
 
@@ -26,7 +30,7 @@ function! s:WalkTreeInternal(dir) " {
 	endif
 
 	" Post-walk evaluation.
-	let l:vimrc = globpath(a:dir, '.vimrc')
+	let l:vimrc = globpath(a:dir, g:projectlocal_filename)
 	if resolve($MYVIMRC) !=# resolve(l:vimrc) && filereadable(l:vimrc)
 		execute 'source ' . l:vimrc
 	endif
